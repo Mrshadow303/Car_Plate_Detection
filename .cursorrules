@@ -1,0 +1,36 @@
+# 车牌识别系统文件规则
+
+# 模型文件
+models/*.pt                # YOLOv8模型文件
+
+# Python缓存文件
+*.pyc                     # Python编译文件
+__pycache__/             # Python缓存目录
+
+# 环境文件
+.env                     # 环境变量配置
+venv/                    # Python虚拟环境
+
+# 项目文件结构说明
+# app.py                 - Flask应用主文件
+# models/               - 模型目录
+# ├── best.pt          - YOLOv8车牌检测模型
+# static/              - 静态资源目录
+# ├── css/             - CSS样式文件
+# ├── js/              - JavaScript文件
+# └── images/          - 图片资源
+# templates/           - HTML模板
+# └── index.html       - 主页面模板
+
+# 文件权限
+# models/best.pt       - 只读
+# app.py              - 读写
+# static/*            - 读写
+# templates/*         - 读写
+
+# 开发规范
+# 1. 保持代码结构清晰
+# 2. 添加必要的注释
+# 3. 遵循PEP8规范
+# 4. 保持文件命名规范
+

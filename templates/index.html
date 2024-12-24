@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>车牌识别系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="upload-container">
+            <div class="upload-area" id="dropArea">
+                <div class="upload-content">
+                    <img src="{{ url_for('static', filename='images/upload.png') }}" alt="上传图标" class="upload-icon">
+                    <p>Drop image here</p>
+                    <p class="sub-text">( 上传时这一堆图标和文字会变成一个进度条 )</p>
+                    <input type="file" id="fileInput" accept="image/*" class="file-input">
+                    <button class="select-btn">Select Asset</button>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="cancel-btn" onclick="cancelUpload()">取消</button>
+                <button class="detect-btn" onclick="detectObjects()">开始识别</button>
+            </div>
+            <p class="button-hint">( 上传后弹出这两个按钮 )</p>
+        </div>
+
+        <div class="result-container">
+            <div class="result-area">
+                <p class="result-hint">Generations will appear here</p>
+                <div id="resultImage" class="result-image"></div>
+                <div id="detectionResults" class="detection-results"></div>
+            </div>
+            <div class="download-area">
+                <button class="download-btn" onclick="downloadResults()">下载结果</button>
+                <p class="download-hint">( 识别后弹出这个按钮 )</p>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
