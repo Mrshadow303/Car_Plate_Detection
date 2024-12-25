@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import cv2
 import numpy as np
 import base64
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageDraw
 import io
 import os
 from paddleocr import PaddleOCR
@@ -19,7 +19,7 @@ print("YOLO模型加载成功")
 # 初始化 PaddleOCR
 cls_model_dir = 'paddleModels/whl/cls/ch_ppocr_mobile_v2.0_cls_infer'
 rec_model_dir = 'paddleModels/whl/rec/ch/ch_PP-OCRv4_rec_infer'
-ocr = PaddleOCR(use_angle_cls=False, lang="ch", det=False, 
+ocr = PaddleOCR(use_angle_cls=True, lang="ch", det=False, 
                 cls_model_dir=cls_model_dir, 
                 rec_model_dir=rec_model_dir)
 print("OCR模型加载成功")
@@ -37,6 +37,20 @@ def get_license_result(ocr, image):
         return license_name, conf
     else:
         return None, None
+    
+def draw_chinese_text(image, text, position, font_path, font_size, color):
+    # 将 OpenCV 图像转换为 PIL 格式
+    image_pil = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(image_pil)
+
+    # 加载字体
+    font = ImageFont.truetype(font_path, font_size)
+
+    # 绘制中文
+    draw.text(position, text, font=font, fill=color)
+
+    # 转换回 OpenCV 格式
+    return cv2.cvtColor(np.array(image_pil), cv2.COLOR_RGB2BGR)
 
 def process_image(image_file):
     # 读取上传的图片
@@ -87,14 +101,13 @@ def process_image(image_file):
             )
             
             # 在边界框上方显示识别结果
-            cv2.putText(
+            image_cv = draw_chinese_text(
                 image_cv,
                 f"{license_num} {conf:.2f}",
-                (x1, y1 - 10),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.9,
-                (0, 255, 0),
-                2,
+                (x1, y1 - 30),  # 调整位置
+                font_path="Font/platech.ttf",  # 中文字体路径
+                font_size=20,
+                color=(0, 255, 0)
             )
 
             # 添加检测和识别结果
