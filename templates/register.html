@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="background">
+        <div class="form-container">
+            <h1>注册</h1>
+            <form method="POST" onsubmit="return handleRegister(event)">
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">注册</button>
+            </form>
+            <p>已有账户？<a href="{{ url_for('login') }}">登录</a></p>
+        </div>
+    </div>
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault(); // 阻止默认表单提交
+            const formData = new FormData(event.target);
+            const response = await fetch('/register', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            showAlert(data.message);
+            if (data.success) {
+                window.location.href = '/login'; // 注册成功后重定向
+            }
+        }
+    </script>
+</body>
+
+</html>

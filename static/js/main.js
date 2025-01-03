@@ -134,4 +134,41 @@ function cancelUpload() {
 function downloadResults() {
     // 实现下载功能
     alert('下载功能待实现');
-} 
+}
+
+document.getElementById("upload-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let formData = new FormData();
+    let fileInput = document.getElementById("image-file");
+    formData.append("file", fileInput.files[0]);
+
+    // 发送上传请求到后端
+    axios.post("/detect", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+    .then(response => {
+        if (response.data.success) {
+            // 显示识别图像
+            document.getElementById("detected-image").src = "data:image/jpeg;base64," + response.data.image;
+
+            // 显示检测结果
+            const results = response.data.results;
+            let resultsList = document.getElementById("detection-results");
+            resultsList.innerHTML = ""; // 清空之前的结果
+            results.forEach(result => {
+                let listItem = document.createElement("li");
+                listItem.textContent = `车牌号: ${result.plate_number}, 置信度: ${result.ocr_confidence}`;
+                resultsList.appendChild(listItem);
+            });
+        } else {
+            alert("上传失败: " + response.data.error);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("请求出错，请稍后重试。");
+    });
+}); 
