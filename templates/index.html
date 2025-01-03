@@ -5,32 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>车牌识别系统</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
-    <div class="background">
-        <h1>欢迎使用车牌识别系统</h1>
-        <p>请上传图片进行车牌检测。</p>
-
-        <div class="container">
-            <div class="upload-container">
-                <form id="upload-form" enctype="multipart/form-data">
-                    <input type="file" id="image-file" name="file" accept="image/*" required>
-                    <button type="submit">上传并识别</button>
-                </form>
+    <div class="container">
+        <div class="upload-container">
+            <div class="upload-area" id="dropArea">
+                <div class="upload-content">
+                    <img src="{{ url_for('static', filename='images/upload.png') }}" alt="上传图标" class="upload-icon">
+                    <p>Drop image here</p>
+                    <p class="sub-text">( 上传时这一堆图标和文字会变成一个进度条 )</p>
+                    <input type="file" id="fileInput" accept="image/*" class="file-input">
+                    <button class="select-btn">Select Asset</button>
+                </div>
             </div>
+            <div class="button-group">
+                <button class="cancel-btn" onclick="cancelUpload()">取消</button>
+                <button class="detect-btn" onclick="detectObjects()">开始识别</button>
+            </div>
+            <p class="button-hint">( 上传后弹出这两个按钮 )</p>
+        </div>
 
-            <div class="result-container">
-                <h2>识别结果：</h2>
-                <div id="image-container">
+        <div class="result-container">
+            <div class="result-area">
+                <p class="result-hint">Generations will appear here</p>
+                <div id="resultImage" class="result-image">
                     <img id="detected-image" src="" alt="识别图像" style="max-width: 100%; height: auto;">
                 </div>
-                <ul id="detection-results">
+                <div id="detectionResults" class="detection-results">
                     <!-- 识别结果（如车牌号）显示在这里 -->
-                </ul>
+                </div>
+            </div>
+            <div class="download-area">
+                <button class="download-btn" onclick="downloadResults()">下载结果</button>
+                <p class="download-hint">( 识别后弹出这个按钮 )</p>
             </div>
         </div>
     </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
