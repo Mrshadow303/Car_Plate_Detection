@@ -134,4 +134,4 @@ function cancelUpload() {
 function downloadResults() {
     // 实现下载功能
     alert('下载功能待实现');
-}
+} 

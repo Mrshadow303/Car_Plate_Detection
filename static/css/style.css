@@ -6,12 +6,13 @@
     gap: 20px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+.upload-container, .result-container {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     padding: 20px;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
 }
 
 .upload-area {
@@ -164,4 +165,4 @@
     max-width: 100%;
     max-height: 400px;
     object-fit: contain;
-}
+} 

@@ -13,7 +13,6 @@
                 <div class="upload-content">
                     <img src="{{ url_for('static', filename='images/upload.png') }}" alt="上传图标" class="upload-icon">
                     <p>Drop image here</p>
-                    <p class="sub-text">( 上传时这一堆图标和文字会变成一个进度条 )</p>
                     <input type="file" id="fileInput" accept="image/*" class="file-input">
                     <button class="select-btn">Select Asset</button>
                 </div>
@@ -28,12 +27,8 @@
         <div class="result-container">
             <div class="result-area">
                 <p class="result-hint">Generations will appear here</p>
-                <div id="resultImage" class="result-image">
-                    <img id="detected-image" src="" alt="识别图像" style="max-width: 100%; height: auto;">
-                </div>
-                <div id="detectionResults" class="detection-results">
-                    <!-- 识别结果（如车牌号）显示在这里 -->
-                </div>
+                <div id="resultImage" class="result-image"></div>
+                <div id="detectionResults" class="detection-results"></div>
             </div>
             <div class="download-area">
                 <button class="download-btn" onclick="downloadResults()">下载结果</button>
@@ -41,7 +36,6 @@
             </div>
         </div>
     </div>
-
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
-</html>
+</html> 
